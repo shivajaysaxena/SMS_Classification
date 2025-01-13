@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Classification</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SMS Spam Classification</h1>
+        <form id="classificationForm">
+            <textarea name="message" id="message" placeholder="Enter your SMS message here"></textarea>
+            <button type="submit">Classify</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        const form = document.getElementById('classificationForm');
+        const resultDiv = document.getElementById('result');
+        
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+            const response = await fetch('/classify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `message=${encodeURIComponent(message)}`
+            });
+            const data = await response.json();
+            resultDiv.textContent = data.error || `Classification: ${data.classification}`;
+        };
+    </script>
+</body>
+</html>
