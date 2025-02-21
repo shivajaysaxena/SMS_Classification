@@ -1,6 +1,6 @@
 # SMS Spam Classification Project
 
-This project is an SMS spam classification system that uses machine learning to classify SMS messages as either **Spam** or **Not Spam**. The system consists of a trained machine learning model, a Flask-based backend, and a user-friendly frontend interface.
+This project is an SMS spam classification system that uses machine learning to classify SMS messages as either **Spam** or **Not Spam**. The system consists of a trained machine learning model and a Streamlit-based web interface.
 
 ---
 
@@ -17,11 +17,7 @@ sms-classification/
 │   ├── vectorizer.pkl    # TF-IDF vectorizer
 │
 ├── app/
-│   ├── static/
-│   │   ├── styles.css    # CSS for styling the website
-│   ├── templates/
-│   │   ├── index.html    # HTML frontend for user interaction
-│   ├── app.py            # Flask application for message classification
+│   ├── app.py            # Streamlit application for message classification
 │
 ├── train_model.py        # Python script to train and save the model
 ├── requirements.txt      # Python dependencies
@@ -58,31 +54,36 @@ sms-classification/
 
 ### **1. Train the Model**
 
-Run the `train_model.py` script to train the Logistic Regression model and save the vectorizer:
+Run the `train_model.py` script to train the Logistic Regression model:
 ```bash
 python train_model.py
 ```
-This will generate the following files in the `model/` directory:
-- `sms_model.pkl` (trained model)
-- `vectorizer.pkl` (TF-IDF vectorizer)
 
-### **2. Start the Flask App**
+### **2. Start the Streamlit App**
 
-Navigate to the `app/` directory and start the Flask server:
+Navigate to the `app/` directory and start the Streamlit server:
 ```bash
 cd app
-python app.py
+streamlit run app.py
 ```
-The application will be available at `http://127.0.0.1:5000/`.
+The application will automatically open in your default web browser.
 
-### **3. Use the Website**
+### **3. Use the Application**
 
-1. Open the application in a web browser.
-2. Enter an SMS message in the input box.
-3. Click the **Classify** button.
-4. View the classification result (Spam or Not Spam).
+1. Enter an SMS message in the text area
+2. Click the **Classify** button
+3. View the classification result with confidence scores
+4. Expand "Message Details" to see probability distribution
 
 ---
+
+## Features
+
+- Real-time SMS classification
+- Probability scores for predictions
+- Interactive visualization of classification results
+- User-friendly interface powered by Streamlit
+- Detailed message analysis with probability distribution charts
 
 ## Dataset
 
@@ -99,36 +100,30 @@ The dataset (`spam.csv`) contains SMS messages labeled as `ham` (not spam) or `s
 
 ### **1. `train_model.py`**
 
-- Preprocesses the dataset.
-- Trains a Logistic Regression model using TF-IDF vectorization.
-- Saves the trained model and vectorizer.
+- Preprocesses the dataset
+- Trains a Logistic Regression model using TF-IDF vectorization
+- Saves the trained model and vectorizer
 
 ### **2. `app/app.py`**
 
-- Flask application to classify SMS messages.
-- Loads the trained model and vectorizer.
-- Provides an API endpoint (`/classify`) for message classification.
-
-### **3. `app/templates/index.html`**
-
-- Frontend interface for entering SMS messages and displaying classification results.
-
-### **4. `app/static/styles.css`**
-
-- CSS styles for the website.
+- Streamlit application for SMS classification
+- Loads the trained model and vectorizer
+- Provides interactive interface with probability visualization
 
 ---
 
 ## Dependencies
 
-The required Python libraries are listed in `requirements.txt`:
+Main requirements:
+- Streamlit
+- scikit-learn
+- pandas
+- numpy
+- nltk
+- matplotlib
+- seaborn
 
-```
-Flask==2.3.2
-scikit-learn==1.3.0
-```
-
-Install them using:
+Install using:
 ```bash
 pip install -r requirements.txt
 ```
@@ -137,6 +132,8 @@ pip install -r requirements.txt
 
 ## Future Enhancements
 
-- Add support for multiple languages.
-- Improve model accuracy with advanced techniques like deep learning.
-- Deploy the application on cloud platforms like AWS or Heroku.
+- Add batch processing for multiple messages
+- Implement model retraining functionality
+- Add support for multiple languages
+- Include more detailed analytics and visualizations
+- Deploy the application on Streamlit Cloud
